@@ -1,17 +1,33 @@
-import streamlit as st
+import os
+
 import google.generativeai as genai
+import streamlit as st
 
 
-st.title("welcome to sachin chat")
+st.set_page_config(page_title="Sachin AI Chat", page_icon="🤖")
+st.title("Sachin AI Chat")
 
-genai.configure(api_key="AIzaSyA2vGCi75BDl1z5k4SCMtJD1hRwnuAIoMM")  
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    try:
+        api_key = st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        api_key = None
 
-text = st.text_input("enter your question")
+if not api_key:
+    st.error("GEMINI_API_KEY is not configured. Add it as an environment variable or Streamlit secret.")
+    st.stop()
 
-model = genai.GenerativeModel('gemini-pro')
+genai.configure(api_key=api_key)
+
+text = st.text_input("Ask a question")
+model = genai.GenerativeModel("gemini-pro")
 chat = model.start_chat(history=[])
 
-
-if st.button("Generate"):
-    response = chat.send_message(text)
-    st.write(response.text)
+if st.button("Generate", type="primary"):
+    if not text.strip():
+        st.warning("Enter a question first.")
+    else:
+        with st.spinner("Generating response..."):
+            response = chat.send_message(text)
+        st.write(response.text)
