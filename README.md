@@ -1,4 +1,12 @@
-# Sachin AI Chat
+<div align="center">
+
+# 💬 Sachin AI Chat
+
+**A small starting point for conversations with Gemini.**
+
+`Python` · `Streamlit` · `Gemini API`
+
+</div>
 
 A lightweight conversational AI application built with **Python** and **Streamlit**, using Google's Gemini API for response generation.
 
