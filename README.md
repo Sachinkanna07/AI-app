@@ -1,70 +1,34 @@
-<div align="center">
+# Sachin AI Chat
 
-# 💬 Sachin AI Chat
+A small Streamlit app for asking Gemini one question at a time. The whole request path fits in [one Python file](app.py).
 
-**A small starting point for conversations with Gemini.**
+[Run the interface](#run-the-interface) · [Try a question](#try-a-question) · [Project roadmap](#project-roadmap)
 
-`Python` · `Streamlit` · `Gemini API`
+## Try a question
 
-</div>
+Enter **“Explain a Python dictionary with a two-line example”** in **Ask a question**, then select **Generate**. The app checks for blank input, shows a spinner while Gemini responds, and displays the returned text. Each submission starts with an empty chat history, so include any context in the question itself.
 
-A lightweight conversational AI application built with **Python** and **Streamlit**, using Google's Gemini API for response generation.
+> **Model compatibility**  
+> This version targets `gemini-pro` through the legacy `google-generativeai` package. The interface can launch independently of model availability. If the API rejects the model ID, the integration needs a supported model and SDK. [Google’s migration guide](https://ai.google.dev/gemini-api/docs/migrate)
 
-> **Project status:** this repository is the current lightweight baseline. A broader upgrade is planned, so the project is intentionally kept simple and easy to inspect.
+## Run the interface
 
-## Current capabilities
+From a local checkout, install the two packages listed in [requirements.txt](requirements.txt).
 
-- Streamlit-based chat interface
-- Gemini-powered text generation
-- API credentials loaded from environment variables or Streamlit secrets
-- Basic input validation and loading feedback
-- Minimal dependency footprint
-
-## Tech stack
-
-- Python
-- Streamlit
-- Google Generative AI SDK
-
-## Run locally
-
-1. Clone the repository.
-2. Install dependencies:
-
-```bash
-pip install -r requirements.txt
+```sh
+python -m pip install -r requirements.txt
 ```
 
-3. Configure your Gemini API key:
+Set `GEMINI_API_KEY` in the environment that starts Streamlit, or add an entry with that name to your deployment’s Streamlit secrets. Keep the value out of source control. If a key was ever committed, revoke it with the provider and issue a replacement.
 
-```powershell
-$env:GEMINI_API_KEY="your_api_key_here"
+```sh
+python -m streamlit run app.py
 ```
 
-4. Start the app:
+Open the local address printed by Streamlit. A missing key produces a configuration message before the question field appears.
 
-```bash
-streamlit run app.py
-```
+## Project roadmap
 
-## Planned upgrade
+The planned next steps are conversation memory, tool and API integration, structured responses, evaluation checks, and a more complete deployment workflow and interface.
 
-The next version is intended to move beyond a basic chat demo. Planned areas include:
-
-- stronger product UI and interaction design
-- conversation memory and context management
-- tool / API integration
-- structured prompt and response handling
-- evaluation and reliability checks
-- production-ready deployment workflow
-
-These are roadmap items, not current capabilities.
-
-## Security
-
-Never commit API keys or other credentials to source control. If a key has ever been committed publicly, revoke it and generate a new one even after removing it from the current code.
-
-## Author
-
-**Sachin Kanna M**  
-Computer Science Engineering student focused on full-stack/backend development and applied AI.
+Built by [Sachin Kanna M](https://github.com/Sachinkanna07).
